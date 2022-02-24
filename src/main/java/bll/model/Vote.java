@@ -19,16 +19,6 @@ public class Vote {
         this.id = AUTO_INCREMENT++;
     }
 
-    private void test()
-    {
-        //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
-        System.out.println("Juste pour tester push commit");
-        System.out.println("Juste pour tester push commit");
-        System.out.println("Juste pour tester push commit");
-        System.out.println("Juste pour tester push commit");
-        System.out.println("Juste pour tester push commit");
-    }
-
     //MÉTHODES UTILITAIRES ->
     public int getId() {
         return id;
