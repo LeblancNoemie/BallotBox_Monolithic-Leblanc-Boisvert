@@ -17,6 +17,8 @@ public class Ballot {
     private Elector owner;
     private List<Elector> voters;
 
+    private List<Vote> votes;
+
     public Ballot(String title, LocalDate start, LocalDate end, boolean isPublic, boolean isAnonymous, List<Candidate> runners, Forum forum, Elector owner, List<Elector> voters) {
         this.id = AUTO_INCREMENT++;
         this.title = title;
@@ -112,6 +114,14 @@ public class Ballot {
         this.voters = voters;
     }
 
+    public List<Vote> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(List<Vote> votes) {
+        this.votes = votes;
+    }
+
     //Methods \/\/
 
     public void addVoter(Elector newVoter)
@@ -134,5 +144,14 @@ public class Ballot {
         this.runners.remove(toRemove);
     }
 
+    public void addVote(Vote newVote)
+    {
+        this.votes.add(newVote);
+    }
+
+    public void removeVote(Vote toRemove)
+    {
+        this.votes.remove(toRemove);
+    }
 
 }

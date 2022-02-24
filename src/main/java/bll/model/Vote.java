@@ -11,12 +11,15 @@ public class Vote {
     private Candidate subject;
     private Elector voter;
 
-    public Vote(LocalDate when, int rank, Candidate subject, Elector voter) {
+    private Ballot poll;
+
+    public Vote(LocalDate when, int rank, Candidate subject, Elector voter, Ballot poll) {
         this.when = when;
         this.rank = rank;
         this.subject = subject;
         this.voter = voter;
         this.id = AUTO_INCREMENT++;
+        this.poll = poll;
     }
 
     //MÉTHODES UTILITAIRES ->
@@ -58,6 +61,14 @@ public class Vote {
 
     public void setVoter(Elector voter) {
         this.voter = voter;
+    }
+
+    public Ballot getPoll() {
+        return poll;
+    }
+
+    public void setPoll(Ballot poll) {
+        this.poll = poll;
     }
 
     @Override
