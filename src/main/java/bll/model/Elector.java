@@ -50,7 +50,7 @@ public class Elector {
         return this.openPolls;
     }
 
-    public void addVotes(Vote newVote){
+    public void addVote(Vote newVote){
         this.votes.add(newVote);
     }
 
