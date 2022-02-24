@@ -1,4 +1,8 @@
-package bll.model;
+package bll.controller;
+
+import bll.model.Candidate;
+import bll.model.Elector;
+import bll.model.Vote;
 
 import java.time.LocalDate;
 

@@ -10,7 +10,6 @@ public class Vote {
 
     private Candidate subject;
     private Elector voter;
-
     private Ballot poll;
 
     public Vote(LocalDate when, int rank, Candidate subject, Elector voter, Ballot poll) {
