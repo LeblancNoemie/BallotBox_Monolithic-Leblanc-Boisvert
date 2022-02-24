@@ -22,6 +22,7 @@ public class Vote {
     private void test()
     {
         System.out.println("Juste pour tester push commit");
+        System.out.println("Juste pour tester push commit");
     }
 
     //MÉTHODES UTILITAIRES ->
