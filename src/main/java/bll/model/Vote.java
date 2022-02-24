@@ -19,10 +19,6 @@ public class Vote {
         this.id = AUTO_INCREMENT++;
     }
 
-    public void test(){
-
-    }
-
     //MÉTHODES UTILITAIRES ->
     public int getId() {
         return id;
