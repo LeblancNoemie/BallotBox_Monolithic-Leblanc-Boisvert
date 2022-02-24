@@ -34,7 +34,7 @@ public class Elector {
         return this.posts;
     }
 
-    public void addOwnedPolls(Ballot newBallot){
+    public void addOwnedPoll(Ballot newBallot){
         this.ownedPolls.add(newBallot);
     }
 
@@ -42,7 +42,7 @@ public class Elector {
         return this.ownedPolls;
     }
 
-    public void addOpenPolls(Ballot newBallot){
+    public void addOpenPoll(Ballot newBallot){
         this.openPolls.add(newBallot);
     }
 
