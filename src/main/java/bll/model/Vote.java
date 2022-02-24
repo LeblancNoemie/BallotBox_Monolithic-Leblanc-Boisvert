@@ -3,7 +3,7 @@ package bll.model;
 import java.time.LocalDate;
 
 public class Vote {
-    private int AUTO_INCREMENT = 1;
+    private static int AUTO_INCREMENT = 0;
     private int id;
     private LocalDate when;
     private int rank;
@@ -16,7 +16,7 @@ public class Vote {
         this.rank = rank;
         this.subject = subject;
         this.voter = voter;
-        this.id = id;
+        this.id = AUTO_INCREMENT++;
     }
 
     //MÉTHODES UTILITAIRES ->
