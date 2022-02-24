@@ -11,7 +11,7 @@ public class Vote {
     private Candidate subject;
     private Elector voter;
 
-    public Vote(int id, LocalDate when, int rank, Candidate subject, Elector voter) {
+    public Vote(LocalDate when, int rank, Candidate subject, Elector voter) {
         this.when = when;
         this.rank = rank;
         this.subject = subject;
