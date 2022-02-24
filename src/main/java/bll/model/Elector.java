@@ -3,6 +3,7 @@ package bll.model;
 import java.util.List;
 
 public class Elector {
+    private static int AUTO_INCREMENT = 0;
     private int id;
     private String login;
     private String password;
@@ -15,8 +16,8 @@ public class Elector {
     private List<Ballot> openPolls;
     private List<Vote> votes;
 
-    public Elector(int id, String login, String password, int weight, String email, int voterId) {
-        this.id = id;
+    public Elector(String login, String password, int weight, String email, int voterId) {
+        this.id = AUTO_INCREMENT++;
         this.login = login;
         this.password = password;
         this.weight = weight;

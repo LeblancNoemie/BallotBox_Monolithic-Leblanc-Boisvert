@@ -4,14 +4,15 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class Forum {
+    private static int AUTO_INCREMENT = 0;
     private int id;
     private String title;
     private LocalDate createdOn;
 
     private List<Post> postList;
 
-    public Forum(int id, String title, LocalDate createdOn, List<Post> postList) {
-        this.id = id;
+    public Forum(String title, LocalDate createdOn, List<Post> postList) {
+        this.id = AUTO_INCREMENT++;
         this.title = title;
         this.createdOn = createdOn;
         this.postList = postList;

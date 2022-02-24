@@ -3,6 +3,7 @@ package bll.model;
 import java.time.LocalDate;
 
 public class Post {
+    private static int AUTO_INCREMENT = 0;
     private int id;
     private LocalDate date;
     private String message;
@@ -11,8 +12,8 @@ public class Post {
     private Forum forum;
     private Elector voter;
 
-    public Post(int id, LocalDate date, String message, Forum forumSource, Forum forum, Elector voter) {
-        this.id = id;
+    public Post(LocalDate date, String message, Forum forumSource, Forum forum, Elector voter) {
+        this.id = AUTO_INCREMENT++;
         this.date = date;
         this.message = message;
         this.forumSource = forumSource;
