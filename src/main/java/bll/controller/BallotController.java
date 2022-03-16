@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class BallotController {
+
     //TODO Doubler les méthodes avec les IDs comme inputs
 
     /* Ancien Vote Comparator au cas ou on en aurai besoin
