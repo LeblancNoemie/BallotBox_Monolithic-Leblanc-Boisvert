@@ -24,6 +24,10 @@ public class InMemoryRepository {
     }
 
     private InMemoryRepository(){
-        //populate();
+        populate();
+    }
+
+    private void populate(){
+
     }
 }

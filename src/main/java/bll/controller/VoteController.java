@@ -7,9 +7,9 @@ import bll.model.Vote;
 import java.time.LocalDate;
 
 public class VoteController {
-    //TODO Doubler les méthodes avec les IDs comme inputs
 
-    //findNumberOfInFavorByCandidate, Trouver le nombre de polls gagné? TODO
+    //TODO findNumberOfInFavorByCandidate, Trouver le nombre de polls gagné?
+    //Utiliser comparator dans Votecomparator
 
     public Vote createVote(Candidate subject, Elector voter, int rank)
     {
