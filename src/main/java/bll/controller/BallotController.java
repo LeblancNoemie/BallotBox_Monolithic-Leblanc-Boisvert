@@ -7,7 +7,15 @@ import java.util.*;
 
 public class BallotController {
     //TODO Doubler les méthodes avec les IDs comme inputs
-    //TODO Mettre le voteComparator dans une autre Classe ou Interface ?
+
+    /* Ancien Vote Comparator au cas ou on en aurai besoin
+        Comparator<Map.Entry<Candidate, Integer>> voteComparator = new Comparator<Map.Entry<Candidate, Integer>>() {
+            @Override
+            public int compare(Map.Entry<Candidate, Integer> o1, Map.Entry<Candidate, Integer> o2) {
+                return o1.getValue() - o2.getValue();
+            }
+        };
+     */
 
     public Candidate findMONOSCANWinner(Ballot poll)
     {
@@ -24,27 +32,13 @@ public class BallotController {
 
         List<Map.Entry<Candidate, Integer>> listOfVoteCounts = count.entrySet().stream().toList();
 
-        Comparator<Map.Entry<Candidate, Integer>> voteComparator = new Comparator<Map.Entry<Candidate, Integer>>() {
-            @Override
-            public int compare(Map.Entry<Candidate, Integer> o1, Map.Entry<Candidate, Integer> o2) {
-                return o1.getValue() - o2.getValue();
-            }
-        };
-
-        Collections.sort(listOfVoteCounts, voteComparator);
+        Collections.sort(listOfVoteCounts, new VoteComparator());
 
         return listOfVoteCounts.stream().findFirst().get().getKey();
     }
 
     public Candidate findPOLYSCANWinner(Ballot poll)
     {
-        Comparator<Map.Entry<Candidate, Integer>> voteComparator = new Comparator<Map.Entry<Candidate, Integer>>() {
-            @Override
-            public int compare(Map.Entry<Candidate, Integer> o1, Map.Entry<Candidate, Integer> o2) {
-                return o1.getValue() - o2.getValue();
-            }
-        };
-
         HashMap<Candidate, Integer> count = new HashMap<Candidate, Integer>();
         List<Map.Entry<Candidate, Integer>> listOfVoteCounts = new ArrayList<>();
 
@@ -82,7 +76,7 @@ public class BallotController {
             }
 
             listOfVoteCounts = count.entrySet().stream().toList();
-            Collections.sort(listOfVoteCounts, voteComparator);
+            Collections.sort(listOfVoteCounts, new VoteComparator());
         } while(listOfVoteCounts.stream().findFirst().get().getValue() < listOfVoteCounts.size()/2);
 
 
