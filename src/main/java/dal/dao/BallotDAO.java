@@ -17,7 +17,7 @@ public class BallotDAO implements IBallotDAO {
     private static InMemoryRepository repository = InMemoryRepository.initialize();
     private Ballot temporaryBallot;
 
-    //TODO faire les autres dao et idao des autres classes comme celui-ci
+    //Testé et fonctionnel
 
     public static Optional<Ballot> getBallotByTitle(String title) {
          return repository.getAllBallots().stream()

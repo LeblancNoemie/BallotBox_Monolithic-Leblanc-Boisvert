@@ -17,6 +17,8 @@ import static net.andreinc.mockneat.unit.types.Ints.ints;
 
 public class InMemoryRepository {
 
+    //Testé et fonctionnel
+
     private static InMemoryRepository dao = null;
     private MockNeat mock = MockNeat.old();
 

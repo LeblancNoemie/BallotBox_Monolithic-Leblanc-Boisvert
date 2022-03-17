@@ -1,5 +1,6 @@
 package bll.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Candidate {
@@ -10,7 +11,7 @@ public class Candidate {
     private String image;
 
     private Ballot poll;
-    private List<Vote> votes;
+    private List<Vote> votes = new ArrayList<>();
 
     public Candidate(String name, String description, String image, Ballot poll)
     {

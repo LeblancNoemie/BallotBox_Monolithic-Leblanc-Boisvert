@@ -1,6 +1,7 @@
 package bll.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Ballot {
@@ -12,12 +13,11 @@ public class Ballot {
     private boolean isPublic;
     private boolean isAnonymous;
 
-    private List<Candidate> runners;
+    private List<Candidate> runners = new ArrayList<>();
     private Forum forum;
     private Elector owner;
-    private List<Elector> voters;
-
-    private List<Vote> votes;
+    private List<Elector> voters = new ArrayList<>();
+    private List<Vote> votes = new ArrayList<>();
 
     public Ballot(String title, LocalDate start, LocalDate end, boolean isPublic, boolean isAnonymous, List<Candidate> runners, Forum forum, Elector owner, List<Elector> voters) {
         this.id = AUTO_INCREMENT++;

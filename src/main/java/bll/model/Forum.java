@@ -1,6 +1,7 @@
 package bll.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Forum {
@@ -9,7 +10,7 @@ public class Forum {
     private String title;
     private LocalDate createdOn;
 
-    private List<Post> postList;
+    private List<Post> postList = new ArrayList<>();
 
     public Forum(String title, LocalDate createdOn, List<Post> postList) {
         this.id = AUTO_INCREMENT++;
