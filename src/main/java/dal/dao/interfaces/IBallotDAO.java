@@ -12,13 +12,13 @@ import java.util.stream.Stream;
 
 public interface IBallotDAO {
 
+    //TODO Chager les autres dao et idao des autres class comme celle-ci
+
     void create(String title, LocalDate start, LocalDate end, boolean isPublic, boolean isAnonymous, List<Candidate> runners, Forum forum, Elector owner, List<Elector> voters);
-    public Ballot getBallotByTitle(String title);
-    public Ballot getBallotByBallot(Ballot ballot);
-
-    //TODO cahnger toute les dao et idao en Optional
-
-    public static Optional<Ballot> getBallotById(int id) { return null;}
     public void update();
     public void delete(Ballot ballot);
+
+    public static Optional<Ballot> getBallotByTitle(String title) {return null;}
+    public static Optional<Ballot> getBallotByBallot(Ballot ballot) {return null;}
+    public static Optional<Ballot> getBallotById(int id) { return null;}
 }

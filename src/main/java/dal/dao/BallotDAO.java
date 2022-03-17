@@ -17,41 +17,28 @@ public class BallotDAO implements IBallotDAO {
     private static InMemoryRepository repository = InMemoryRepository.initialize();
     private Ballot temporaryBallot;
 
+    //TODO faire les autres dao et idao des autres classes comme celui-ci
 
-    //TODO Changer le type de retour du stream pour un type correct (Optional<T>)
-    @Override
+    public static Optional<Ballot> getBallotByTitle(String title) {
+         return repository.getAllBallots().stream()
+                .filter(ballot -> ballot.getTitle().equals(title)).findFirst();
+    }
+    public static Optional<Ballot> getBallotByBallot(Ballot ballot) {
+        return repository.getAllBallots().stream()
+                .filter(myBallot -> myBallot == ballot).findFirst();
+    }
+    public static Optional<Ballot> getBallotById(int id) {
+        return repository.getAllBallots().stream()
+                .filter(ballot -> ballot.getId() == id).findFirst();
+    }
+    // pas besoin des mettres les @Override qu'on implémente une interface.
     public void create(String title, LocalDate start, LocalDate end, boolean isPublic, boolean isAnonymous, List<Candidate> runners, Forum forum, Elector owner, List<Elector> voters) {
         Ballot ballot = new Ballot(title,start,end,isPublic,isAnonymous,runners,forum,owner,voters);
         temporaryBallot = ballot;
     }
-
-    @Override
-    public Ballot getBallotByTitle(String title) {
-        Stream<Ballot> ballotByTitle = repository.getAllBallots().stream()
-                .filter(ballot -> ballot.getTitle().equals(title));
-        return (Ballot) ballotByTitle;
-    }
-
-    @Override
-    public Ballot getBallotByBallot(Ballot ballot) {
-        Stream<Ballot> ballotByBallot = repository.getAllBallots().stream()
-                .filter(myBallot -> myBallot == ballot);
-        return (Ballot) ballotByBallot;
-    }
-
-
-    public static Optional<Ballot> getBallotById(int id) {
-        Optional<Ballot> ballotById = repository.getAllBallots().stream()
-                .filter(ballot -> ballot.getId() == id).findFirst();
-        return ballotById;
-    }
-
-    @Override
     public void update() {
         repository.getAllBallots().add(temporaryBallot);
     }
-
-    @Override
     public void delete(Ballot ballot) {
         repository.getAllBallots().remove(ballot);
     }
