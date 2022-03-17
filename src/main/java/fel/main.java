@@ -2,8 +2,10 @@ package fel;
 
 import bll.model.Ballot;
 import bll.model.Candidate;
+import bll.model.Elector;
 import bll.model.Vote;
 import dal.InMemoryRepository;
+import fel.view.BallotBoxConsoleDriver;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,15 +14,13 @@ import java.util.List;
 public class main {
     public static void main(String[] args) {
 
+        BallotBoxConsoleDriver driver = new BallotBoxConsoleDriver();
+
         InMemoryRepository dao = InMemoryRepository.initialize();
 
-        List<Ballot> ballots = dao.getAllBallot();
-
-        for(Ballot ballot : ballots){
-            System.out.println("-------------------");
-            System.out.println(ballot.getTitle());
-            System.out.println(ballot.getStart());
-            System.out.println(ballot.getVoters().size());
+        for(Ballot ballot:dao.getAllBallots()){
+            Candidate candidate = driver.run_usingInMemoryRepository(ballot);
+            System.out.println(candidate.getName() + " " + candidate.getVotes().size());
 
         }
 

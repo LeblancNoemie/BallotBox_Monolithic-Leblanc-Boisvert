@@ -43,22 +43,22 @@ public class InMemoryRepository {
     }
 
     //List getters methods:
-    public List<Ballot> getAllBallot() {
+    public List<Ballot> getAllBallots() {
         return ballotList;
     }
-    public List<Forum> getAllForum() {
+    public List<Forum> getAllForums() {
         return forumList;
     }
-    public List<Post> getAllPost() {
+    public List<Post> getAllPosts() {
         return postList;
     }
-    public List<Elector> getAllElector() {
+    public List<Elector> getAllElectors() {
         return electorList;
     }
-    public List<Candidate> getAllCandidate() {
+    public List<Candidate> getAllCandidates() {
         return candidateList;
     }
-    public List<Vote> getAllVote() {
+    public List<Vote> getAllVotes() {
         return voteList;
     }
 
@@ -68,17 +68,16 @@ public class InMemoryRepository {
 
             //Tous les attributs nécéssaires à la création d'un ballot
             String title = words().nouns().get();
-            LocalDate name = generateRandomDate();
+            LocalDate start = generateRandomDate();
             LocalDate end = generateRandomDate();
             boolean isPublic = bools().probability(50.00).get();
             boolean isAnonymous = bools().probability(50.00).get();
             List<Candidate> ballotCandidates = populateCandidateList(3,title);
-            Forum forum = populateForumList(title, name);
+            Forum forum = populateForumList(title, start);
             List<Elector> voters = populateElectorList(10); //Mentionné la quantité de voters
             Elector owner = voters.get(new Random().nextInt(voters.size()));
 
-
-            Ballot newBallot = new Ballot(title, name,end, isPublic, isAnonymous, ballotCandidates, forum, owner, voters);
+            Ballot newBallot = new Ballot(title, start,end, isPublic, isAnonymous, ballotCandidates, forum, owner, voters);
 
             //Ajout des ballots aux candidats/electeurs
             for(Candidate candidate :ballotCandidates){
@@ -89,13 +88,12 @@ public class InMemoryRepository {
             for(Elector elector : voters){
                 elector.addOpenPoll(newBallot);
                 Candidate winner = ballotCandidates.get(new Random().nextInt(ballotCandidates.size()));
-                populateVoteList(name,winner,elector,newBallot);
+                populateVoteList(start,winner,elector,newBallot);
             }
 
             ballotList.add(newBallot);
         }
     }
-
     private Forum populateForumList(String title, LocalDate creationDate){
         String _title = title + " forum";
         LocalDate _createdOn = creationDate;
@@ -103,7 +101,6 @@ public class InMemoryRepository {
         forumList.add(forum);
         return forum;
     }
-
     private List<Elector> populateElectorList(int quantity){
         List<Elector> ballotElectors = new ArrayList<>();
         for(int i = 0;i<quantity;i++){
@@ -119,7 +116,6 @@ public class InMemoryRepository {
         }
         return ballotElectors;
     }
-
     private List<Candidate> populateCandidateList(int quantity, String ballotTitle){
         List<Candidate> ballotCandidate = new ArrayList<>();
         for(int i = 0; i<quantity; i++){
@@ -135,25 +131,21 @@ public class InMemoryRepository {
         return ballotCandidate;
 
     }
-
     private void populateVoteList(LocalDate when, Candidate subject, Elector voter, Ballot ballot){
         //Seulement le rank est généré:
         int rank = ints().range(1,10).get();
         Vote vote = new Vote(when,rank,subject,voter,ballot);
         voteList.add(vote);
     }
-
     private void populatePostList(){
-
     }
 
     private LocalDate generateRandomDate(){
-        int _year = ints().range(Year.now().getValue(),2100).get();
+        int _year = ints().range(Year.now().getValue(),2050).get();
         int _month = ints().range(1,12).get();
         int _day = ints().range(1,28).get();
         LocalDate newDate = LocalDate.of(_year,_month,_day);
         return newDate;
-
     }
 
 
