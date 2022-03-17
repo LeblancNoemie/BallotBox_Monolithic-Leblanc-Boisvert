@@ -15,10 +15,15 @@ public class BallotBoxConsoleDriver {
         Optional<Ballot> _ballot = dao.getBallotById(Integer.valueOf(id));
         return _ballot.isPresent() ? ballotController.findMONOSCANWinner(_ballot.get()) : null;
     }
+    public Candidate runMONOSCAN_usingInMemoryRepository(Ballot ballot){
+        return ballotController.findMONOSCANWinner(ballot);
+    }
 
-    public Candidate runPOLYSCAN_usingInMemoryRepository(String id)
-    {
+    public Candidate runPOLYSCAN_usingInMemoryRepository(String id) {
         Optional<Ballot> _ballot = dao.getBallotById(Integer.valueOf(id));
         return _ballot.isPresent() ? ballotController.findPOLYSCANWinner(_ballot.get()) : null;
+    }
+    public Candidate runPOLYSCAN_usingInMemoryRepository(Ballot ballot) {
+        return ballotController.findPOLYSCANWinner(ballot);
     }
 }

@@ -1,6 +1,7 @@
 package bll.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Ballot {
@@ -30,6 +31,7 @@ public class Ballot {
         this.forum = forum;
         this.owner = owner;
         this.voters = voters;
+        this.votes = new ArrayList<Vote>();
     }
 
     // Getter Setter \/\/

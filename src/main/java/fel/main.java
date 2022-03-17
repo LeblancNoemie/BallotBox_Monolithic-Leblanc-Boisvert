@@ -15,14 +15,12 @@ public class main {
     public static void main(String[] args) {
 
         BallotBoxConsoleDriver driver = new BallotBoxConsoleDriver();
-
         InMemoryRepository dao = InMemoryRepository.initialize();
 
         for(Ballot ballot:dao.getAllBallots()){
-            Candidate candidate = driver.run_usingInMemoryRepository(ballot);
-            System.out.println(candidate.getName() + " " + candidate.getVotes().size());
-
+            Candidate monoWinner = driver.runMONOSCAN_usingInMemoryRepository(ballot);
+            Candidate polyWinner = driver.runPOLYSCAN_usingInMemoryRepository(ballot);
+            System.out.println("Ballot: " + ballot.getTitle() + ", mono winner is : " + monoWinner.getName() + ", poly winner is: " + polyWinner.getName());
         }
-
     }
 }
