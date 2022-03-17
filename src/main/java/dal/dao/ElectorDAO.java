@@ -20,7 +20,7 @@ public class ElectorDAO implements IElectorDAO {
     }
     @Override
     public void delete(Elector elector) {
-        repository.getAllElectors().remove(temporary);
+        repository.getAllElectors().remove(elector);
     }
 
 

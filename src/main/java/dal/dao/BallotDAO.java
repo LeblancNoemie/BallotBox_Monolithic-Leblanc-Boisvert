@@ -31,10 +31,9 @@ public class BallotDAO implements IBallotDAO {
         return repository.getAllBallots().stream()
                 .filter(ballot -> ballot.getId() == id).findFirst();
     }
-    // pas besoin des mettres les @Override parce qu'on implémente une interface.
+
     public void create(String title, LocalDate start, LocalDate end, boolean isPublic, boolean isAnonymous, List<Candidate> runners, Forum forum, Elector owner, List<Elector> voters) {
-        Ballot ballot = new Ballot(title,start,end,isPublic,isAnonymous,runners,forum,owner,voters);
-        temporaryBallot = ballot;
+        temporaryBallot = new Ballot(title,start,end,isPublic,isAnonymous,runners,forum,owner,voters);
     }
     public void update() {
         repository.getAllBallots().add(temporaryBallot);
