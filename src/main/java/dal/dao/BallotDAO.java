@@ -9,15 +9,16 @@ import dal.dao.interfaces.IBallotDAO;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 public class BallotDAO implements IBallotDAO {
 
-    private InMemoryRepository repository = InMemoryRepository.initialize();
+    private static InMemoryRepository repository = InMemoryRepository.initialize();
     private Ballot temporaryBallot;
 
 
-    //TODO Changer le type de retour du stream pour un type correct (voir BallotBoxConsoleDriver)
+    //TODO Changer le type de retour du stream pour un type correct (Optional<T>)
     @Override
     public void create(String title, LocalDate start, LocalDate end, boolean isPublic, boolean isAnonymous, List<Candidate> runners, Forum forum, Elector owner, List<Elector> voters) {
         Ballot ballot = new Ballot(title,start,end,isPublic,isAnonymous,runners,forum,owner,voters);
@@ -38,11 +39,11 @@ public class BallotDAO implements IBallotDAO {
         return (Ballot) ballotByBallot;
     }
 
-    @Override
-    public Ballot getBallotById(int id) {
-        Stream<Ballot> ballotById = repository.getAllBallots().stream()
-                .filter(ballot -> ballot.getId() == id);
-        return (Ballot) ballotById;
+
+    public static Optional<Ballot> getBallotById(int id) {
+        Optional<Ballot> ballotById = repository.getAllBallots().stream()
+                .filter(ballot -> ballot.getId() == id).findFirst();
+        return ballotById;
     }
 
     @Override
