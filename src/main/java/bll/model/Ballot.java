@@ -30,6 +30,7 @@ public class Ballot {
         this.forum = forum;
         this.owner = owner;
         this.voters = voters;
+        this.votes = new ArrayList<Vote>();
     }
 
     // Getter Setter \/\/
