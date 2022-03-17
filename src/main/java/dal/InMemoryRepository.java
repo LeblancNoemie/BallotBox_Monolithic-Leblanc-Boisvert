@@ -140,12 +140,6 @@ public class InMemoryRepository {
             ballot.addVote(_vote);
             voteList.add(_vote);
         }
-        /*
-        //Seulement le rank est généré:
-        int rank = ints().range(1,10).get();
-        Vote vote = new Vote(when,rank,subject,voter,ballot);
-        */
-
     }
     private void populatePostList(){
     }

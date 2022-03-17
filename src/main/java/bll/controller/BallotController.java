@@ -37,6 +37,7 @@ public class BallotController {
         return listOfVoteCounts.stream().findFirst().get().getKey();
     }
 
+    //TODO Reparer.
     public Candidate findPOLYSCANWinner(Ballot poll)
     {
         HashMap<Candidate, Integer> count = new HashMap<Candidate, Integer>();
