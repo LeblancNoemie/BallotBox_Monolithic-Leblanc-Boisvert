@@ -30,11 +30,10 @@ public class BallotController {
                 count.put(v.getSubject(), voteCount + 1);
             }
         }
-
-        List<Map.Entry<Candidate, Integer>> listOfVoteCounts = count.entrySet().stream().toList();
-
+        List<Map.Entry<Candidate, Integer>> listOfVoteCounts = new LinkedList<Map.Entry<Candidate, Integer>>(count.entrySet().stream().toList());
+        System.out.println("ici");
         Collections.sort(listOfVoteCounts, new VoteComparator());
-
+        System.out.println("la");
         return listOfVoteCounts.stream().findFirst().get().getKey();
     }
 
