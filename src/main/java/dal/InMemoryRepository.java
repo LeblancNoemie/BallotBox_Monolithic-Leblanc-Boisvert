@@ -8,7 +8,9 @@ import java.time.LocalDate;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
+import static net.andreinc.mockneat.unit.text.Strings.strings;
 import static net.andreinc.mockneat.unit.text.Words.words;
 import static net.andreinc.mockneat.unit.types.Bools.bools;
 import static net.andreinc.mockneat.unit.types.Ints.ints;
@@ -18,12 +20,12 @@ public class InMemoryRepository {
     private static InMemoryRepository dao = null;
     private MockNeat mock = MockNeat.old();
 
-    private List<Ballot> ballotList;
-    private List<Forum> forumList;
-    private List<Post> postList;
-    private List<Elector> electorList;
-    private List<Candidate> candidateList;
-    private List<Vote> voteList;
+    private List<Ballot> ballotList = new ArrayList<>();
+    private List<Forum> forumList  = new ArrayList<>();
+    private List<Post> postList = new ArrayList<>();
+    private List<Elector> electorList = new ArrayList<>();
+    private List<Candidate> candidateList = new ArrayList<>();
+    private List<Vote> voteList = new ArrayList<>();
 
     //Singleton methods:
     public static InMemoryRepository initialize(){
@@ -38,51 +40,58 @@ public class InMemoryRepository {
     }
     private void populate(){
     populateBallotList(10);
-    populateCandidateList();
-    populateForumList();
-    populateElectorList();
-    populatePostList();
-    populateVoteList();
     }
 
     //List getters methods:
-    public List<Ballot> getAllBallotList() {
+    public List<Ballot> getAllBallot() {
         return ballotList;
     }
-    public List<Forum> getAllForumList() {
+    public List<Forum> getAllForum() {
         return forumList;
     }
-    public List<Post> getAllPostList() {
+    public List<Post> getAllPost() {
         return postList;
     }
-    public List<Elector> getAllElectorList() {
+    public List<Elector> getAllElector() {
         return electorList;
     }
-    public List<Candidate> getAllCandidateList() {
+    public List<Candidate> getAllCandidate() {
         return candidateList;
     }
-    public List<Vote> getAllVoteList() {
+    public List<Vote> getAllVote() {
         return voteList;
     }
 
     //Populating methods:
     private void populateBallotList(int quantity){
         for(int i = 0; i<quantity; i++){
-            String _title = words().nouns().get();
-            LocalDate _start = generateRandomDate();
-            LocalDate _end = generateRandomDate();
-            boolean _isPublic = bools().probability(50.00).get();
-            boolean _isAnonymous = bools().probability(50.00).get();
-            List<Candidate> _candidateList = populateCandidateList(3,_title);
-            Forum _forum = populateForumList(_title, _start);
-            Elector _owner = populateElectorList(1);
-            List<Elector> _voters = populateElectorList(10); //Mentionné la quantité de voters
 
-            Ballot newBallot = new Ballot(_title, _start,_end, _isPublic, _isAnonymous, _candidateList, _forum, _owner, _voters);
+            //Tous les attributs nécéssaires à la création d'un ballot
+            String title = words().nouns().get();
+            LocalDate name = generateRandomDate();
+            LocalDate end = generateRandomDate();
+            boolean isPublic = bools().probability(50.00).get();
+            boolean isAnonymous = bools().probability(50.00).get();
+            List<Candidate> ballotCandidates = populateCandidateList(3,title);
+            Forum forum = populateForumList(title, name);
+            List<Elector> voters = populateElectorList(10); //Mentionné la quantité de voters
+            Elector owner = voters.get(new Random().nextInt(voters.size()));
 
-            for(Candidate cd :_candidateList){
-                cd.setPoll(newBallot);
+
+            Ballot newBallot = new Ballot(title, name,end, isPublic, isAnonymous, ballotCandidates, forum, owner, voters);
+
+            //Ajout des ballots aux candidats/electeurs
+            for(Candidate candidate :ballotCandidates){
+                candidate.setPoll(newBallot);
             }
+
+            //Ajout de ballots et de votes aux électeurs
+            for(Elector elector : voters){
+                elector.addOpenPoll(newBallot);
+                Candidate winner = ballotCandidates.get(new Random().nextInt(ballotCandidates.size()));
+                populateVoteList(name,winner,elector,newBallot);
+            }
+
             ballotList.add(newBallot);
         }
     }
@@ -95,28 +104,46 @@ public class InMemoryRepository {
         return forum;
     }
 
-    private void populatePostList(){
+    private List<Elector> populateElectorList(int quantity){
+        List<Elector> ballotElectors = new ArrayList<>();
+        for(int i = 0;i<quantity;i++){
+            String _login = mock.names().get();
+            String _password = strings().size(ints().range(6,15)).get();
+            int _weight = ints().range(90,500).get();
+            String _email = mock.emails().get();
+            Elector elector = new Elector(_login, _password, _weight, _email);
 
-    }
-
-    private void populateElectorList(int quantity){
-
+            //Ajout à la liste de retour et à la liste globale:
+            ballotElectors.add(elector);
+            electorList.add(elector);
+        }
+        return ballotElectors;
     }
 
     private List<Candidate> populateCandidateList(int quantity, String ballotTitle){
-        List<Candidate> ballotCandidateList = new ArrayList<>();
+        List<Candidate> ballotCandidate = new ArrayList<>();
         for(int i = 0; i<quantity; i++){
             String _name = mock.names().get();
             String _description = "This is the description of the candidate " +_name + " .Candidate of the" + ballotTitle + " ballot";
             String _image = "Image"+_name+".png";
             Candidate candidate = new Candidate(_name,_description, _image);
-            ballotCandidateList.add(candidate);
+
+            //Ajout à la liste de retour et à la liste globale:
+            ballotCandidate.add(candidate);
             candidateList.add(candidate);
         }
-        return ballotCandidateList;
+        return ballotCandidate;
 
     }
-    private void populateVoteList(){
+
+    private void populateVoteList(LocalDate when, Candidate subject, Elector voter, Ballot ballot){
+        //Seulement le rank est généré:
+        int rank = ints().range(1,10).get();
+        Vote vote = new Vote(when,rank,subject,voter,ballot);
+        voteList.add(vote);
+    }
+
+    private void populatePostList(){
 
     }
 

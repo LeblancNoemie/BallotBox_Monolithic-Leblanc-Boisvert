@@ -98,7 +98,7 @@ public class Ballot {
     }
 
     public Elector getOwner() {
-        return owner;
+        return (Elector) owner;
     }
 
     public void setOwner(Elector owner) {

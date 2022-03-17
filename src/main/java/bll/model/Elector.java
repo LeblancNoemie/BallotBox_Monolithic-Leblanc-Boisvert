@@ -1,5 +1,6 @@
 package bll.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Elector {
@@ -11,12 +12,12 @@ public class Elector {
     private String email;
     private int voterId;
 
-    private List<Post> posts;
-    private List<Ballot> ownedPolls;
-    private List<Ballot> openPolls;
-    private List<Vote> votes;
+    private List<Post> posts = new ArrayList<>();
+    private List<Ballot> ownedPolls = new ArrayList<>();
+    private List<Ballot> openPolls = new ArrayList<>();
+    private List<Vote> votes = new ArrayList<>();
 
-    public Elector(String login, String password, int weight, String email, int voterId) {
+    public Elector(String login, String password, int weight, String email) {
         this.id = AUTO_INCREMENT++;
         this.login = login;
         this.password = password;
