@@ -33,7 +33,6 @@ public class Ballot {
     }
 
     // Getter Setter \/\/
-
     public int getId() {
         return id;
     }

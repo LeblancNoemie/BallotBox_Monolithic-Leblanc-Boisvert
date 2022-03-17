@@ -22,6 +22,14 @@ public class Candidate {
         this.poll = poll;
     }
 
+    public Candidate(String name, String description, String image)
+    {
+        this.id = AUTO_INCREMENT++;
+        this.name = name;
+        this.description = description;
+        this.image = image;
+    }
+
     // Getter Setter \/\/
 
     public int getId() {

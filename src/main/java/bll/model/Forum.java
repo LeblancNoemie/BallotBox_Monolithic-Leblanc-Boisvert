@@ -19,7 +19,7 @@ public class Forum {
     }
 
     //constructeur sans liste de posts... On ajoute les posts grace à la méthode 'addPost()'
-    public Forum(int id, String title, LocalDate createdOn) {
+    public Forum( String title, LocalDate createdOn) {
         this.id = id;
         this.title = title;
         this.createdOn = createdOn;
