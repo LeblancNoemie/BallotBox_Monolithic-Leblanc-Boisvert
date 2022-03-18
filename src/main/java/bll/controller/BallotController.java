@@ -82,6 +82,7 @@ public class BallotController {
             Collections.sort(listOfVoteCounts, new VoteComparator());
         } while(listOfVoteCounts.stream().findFirst().get().getValue() < listOfVoteCounts.size()/2);
 
+        polyWinner = listOfVoteCounts.stream().findFirst().get().getKey();
 
         return listOfVoteCounts.stream().findFirst().get().getKey();
     }
