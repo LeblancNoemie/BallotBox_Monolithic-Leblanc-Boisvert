@@ -137,6 +137,7 @@ public class InMemoryRepository {
         {
             Vote _vote = new Vote(when, ranks.get(i),ballot.getRunners().get(i), voter,ballot);
 
+            voter.addVote(_vote);
             ballot.addVote(_vote);
             voteList.add(_vote);
         }

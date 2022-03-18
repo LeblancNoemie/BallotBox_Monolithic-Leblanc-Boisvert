@@ -18,8 +18,10 @@ public class BallotController {
         };
      */
 
-    public Candidate findMONOSCANWinner(Ballot poll)
-    {
+    public Candidate monoWinner;
+    public Candidate polyWinner;
+
+    public Candidate findMONOSCANWinner(Ballot poll) {
         HashMap<Candidate, Integer> count = new HashMap<Candidate, Integer>();
 
         for(Vote v : poll.getVotes())
@@ -31,22 +33,23 @@ public class BallotController {
             }
         }
         List<Map.Entry<Candidate, Integer>> listOfVoteCounts = new LinkedList<Map.Entry<Candidate, Integer>>(count.entrySet().stream().toList());
-        System.out.println("ici");
         Collections.sort(listOfVoteCounts, new VoteComparator());
-        System.out.println("la");
+        monoWinner = listOfVoteCounts.stream().findFirst().get().getKey();
         return listOfVoteCounts.stream().findFirst().get().getKey();
     }
-
-    //TODO Reparer.
-    public Candidate findPOLYSCANWinner(Ballot poll)
-    {
+    public Candidate findPOLYSCANWinner(Ballot poll) {
         HashMap<Candidate, Integer> count = new HashMap<Candidate, Integer>();
-        List<Map.Entry<Candidate, Integer>> listOfVoteCounts = new ArrayList<>();
+        List<Map.Entry<Candidate, Integer>> listOfVoteCounts = new LinkedList<>();
 
-        List<Candidate> eliminatedCandidates = new ArrayList<>();
+        List<Candidate> eliminatedCandidates = new LinkedList<>();
         do
         {
-            eliminatedCandidates.add(listOfVoteCounts.stream().findFirst().get().getKey());
+            if(listOfVoteCounts.stream().findFirst().isPresent())
+            {
+                System.out.println("if not empty");
+                eliminatedCandidates.add(listOfVoteCounts.stream().findFirst().get().getKey());
+            }
+
             count = new HashMap<>();
 
             for(Elector e : poll.getVoters())
@@ -75,8 +78,7 @@ public class BallotController {
                     }
                 }
             }
-
-            listOfVoteCounts = count.entrySet().stream().toList();
+            listOfVoteCounts = new LinkedList<Map.Entry<Candidate, Integer>>(count.entrySet().stream().toList());
             Collections.sort(listOfVoteCounts, new VoteComparator());
         } while(listOfVoteCounts.stream().findFirst().get().getValue() < listOfVoteCounts.size()/2);
 
@@ -88,7 +90,6 @@ public class BallotController {
     {
         return poll.getVotes().size();
     }
-
     public Ballot createBallot(String Title, LocalDate end, Boolean isPublic, Boolean isAnonymous, List<Candidate> runners, Forum forum, Elector owner, List<Elector> voters) // le create vote des consignes, renommer pour être plus lisible
     {
         Ballot newBallot = new Ballot(Title, LocalDate.now(), end, isPublic, isAnonymous, runners, forum, owner, voters);
