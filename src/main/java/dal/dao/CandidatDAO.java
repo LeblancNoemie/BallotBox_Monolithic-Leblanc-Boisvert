@@ -11,15 +11,12 @@ public class CandidatDAO implements ICandidatDAO {
     private Candidate temporary;
     private static InMemoryRepository repository = InMemoryRepository.initialize();
 
-    @Override
     public void create(String name, String description, String image, Ballot poll) {
         temporary = new Candidate(name, description,image,poll);
     }
-    @Override
     public void update() {
         repository.getAllCandidates().add(temporary);
     }
-    @Override
     public void delete(Candidate candidate) {
         repository.getAllCandidates().remove(candidate);
     }

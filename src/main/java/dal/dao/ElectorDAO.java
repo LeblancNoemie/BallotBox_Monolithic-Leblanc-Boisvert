@@ -10,19 +10,15 @@ public class ElectorDAO implements IElectorDAO {
     private static InMemoryRepository repository = InMemoryRepository.initialize();
     private Elector temporary;
 
-    @Override
     public void create(String login, String password, int weight, String email) {
         temporary = new Elector(login, password,weight,email);
     }
-    @Override
     public void update() {
         repository.getAllElectors().add(temporary);
     }
-    @Override
     public void delete(Elector elector) {
         repository.getAllElectors().remove(elector);
     }
-
 
     public static Optional<Elector> getElectorByEmail(String email) {
         return repository.getAllElectors().stream()
