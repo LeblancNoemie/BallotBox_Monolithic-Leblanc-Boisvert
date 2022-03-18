@@ -25,7 +25,6 @@ public class CandidatDAO implements ICandidatDAO {
         return repository.getAllCandidates().stream()
                 .filter(candidate -> candidate.getName().equals(name)).findFirst();
     }
-    //Git test
 
     public static Optional<Candidate> getCandidateById(int id) {
         return repository.getAllCandidates().stream()

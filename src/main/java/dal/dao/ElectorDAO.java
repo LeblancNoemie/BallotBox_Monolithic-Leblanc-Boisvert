@@ -9,7 +9,6 @@ import java.util.Optional;
 public class ElectorDAO implements IElectorDAO {
     private static InMemoryRepository repository = InMemoryRepository.initialize();
     private Elector temporary;
-    //Git test
 
     public void create(String login, String password, int weight, String email) {
         temporary = new Elector(login, password,weight,email);

@@ -13,7 +13,6 @@ import java.util.Optional;
 public class VoteDAO implements IVoteDAO {
     private Vote temporary;
     private static InMemoryRepository repository = InMemoryRepository.initialize();
-    //Git test
 
     public void create(LocalDate when, int rank, Candidate subject, Elector voter, Ballot poll) {
         temporary = new Vote(when, rank, subject,voter,poll);

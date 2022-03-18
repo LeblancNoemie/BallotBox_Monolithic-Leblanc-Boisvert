@@ -17,7 +17,6 @@ public class BallotDAO implements IBallotDAO {
     private static InMemoryRepository repository = InMemoryRepository.initialize();
     private Ballot temporaryBallot;
 
-    //Git test
     public static Optional<Ballot> getBallotByTitle(String title) {
          return repository.getAllBallots().stream()
                 .filter(ballot -> ballot.getTitle().equals(title)).findFirst();
