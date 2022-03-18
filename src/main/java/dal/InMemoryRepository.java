@@ -6,14 +6,13 @@ import net.andreinc.mockneat.MockNeat;
 
 import java.time.LocalDate;
 import java.time.Year;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import static net.andreinc.mockneat.unit.text.Strings.strings;
 import static net.andreinc.mockneat.unit.text.Words.words;
 import static net.andreinc.mockneat.unit.types.Bools.bools;
 import static net.andreinc.mockneat.unit.types.Ints.ints;
+
 
 public class InMemoryRepository {
 
@@ -134,11 +133,17 @@ public class InMemoryRepository {
 
     }
     private void populateVoteList(LocalDate when, Candidate subject, Elector voter, Ballot ballot){
-        //Seulement le rank est généré:
-        int rank = ints().range(1,10).get();
-        Vote vote = new Vote(when,rank,subject,voter,ballot);
-        ballot.addVote(vote);
-        voteList.add(vote);
+        List<Integer> ranks = new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6,7,8,9,10));
+        Collections.shuffle(ranks);
+
+        for(int i = 0; i < ballot.getRunners().size(); i++)
+        {
+            Vote _vote = new Vote(when, ranks.get(i),ballot.getRunners().get(i), voter,ballot);
+
+            voter.addVote(_vote);
+            ballot.addVote(_vote);
+            voteList.add(_vote);
+        }
     }
     private void populatePostList(){
     }
