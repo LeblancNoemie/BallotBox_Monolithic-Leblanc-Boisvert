@@ -13,7 +13,10 @@ import static net.andreinc.mockneat.unit.text.Words.words;
 import static net.andreinc.mockneat.unit.types.Bools.bools;
 import static net.andreinc.mockneat.unit.types.Ints.ints;
 
+
 public class InMemoryRepository {
+
+    //Testé et fonctionnel
 
     private static InMemoryRepository dao = null;
     private MockNeat mock = MockNeat.old();
